@@ -8,15 +8,16 @@ public class SpeedScript : MonoBehaviour
     public float playerSpeed;
     public PlayerMovement pm;
     public Rigidbody rb;
-    public gameObject;
+
+    public GameObject player;
      void Start()
-    {
-        pm = GetComponent<PlayerMovement>();
-        rb = GetComponent<Rigidbody>();
+     {
+        pm = player.GetComponent<PlayerMovement>();
+        rb = player.GetComponent<Rigidbody>();
        
-    }
+     }
     void Update()
     {
-        speedDisplay.text = (rb.linearVelocity.magnitude.ToString());
+        speedDisplay.text = (Mathf.RoundToInt(rb.linearVelocity.magnitude).ToString());
     }
 }
