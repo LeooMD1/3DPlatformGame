@@ -667,10 +667,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boostVelocity: 30
+  boostSpeed: 20
   isTouched: 0
   pm: {fileID: 380707286}
   rb: {fileID: 380707287}
   col: {fileID: 966628090}
+  orientation: {fileID: 648620625}
   player: {fileID: 380707283}
 --- !u!65 &719128067
 BoxCollider:
