@@ -1,23 +1,49 @@
+using JetBrains.Annotations;
 using UnityEngine;
+using static PlayerMovement;
 
 public class FovSlider : MonoBehaviour
 {
     [Header("References")]
 
-    public Camera camera;
-
-    public float walkFov = 1f;
-    public float sprintFov = 2f;
+    public new Camera camera;
+    public PlayerMovement pm;
+    public GameObject Player;
     
-    static float startValue = 1f;
+
+    public bool walking;
+    public bool sprinting;
+    public bool crouching;
+    public bool sliding;
+    
+    public float walkFov;
+    public float sprintFov;
+    public float crouchFov;
+    public float slideFov;
+
+    public float targetFov;
     // Update is called once per frame
+
+    private void Start()
+    {
+        pm = Player.GetComponent<PlayerMovement>();
+    }
     void Update()
     {
-        
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-            camera.fieldOfView = Mathf.Lerp(walkFov, sprintFov, startValue);
-        else if (Input.GetKeyUp(KeyCode.LeftShift))
-            camera.fieldOfView = Mathf.Lerp(sprintFov, walkFov, startValue);
+        if (pm.state == PlayerMovement.MovementState.walking)
+            targetFov = walkFov;
+
+        if (pm.state == PlayerMovement.MovementState.sprinting)
+            targetFov = sprintFov;
+
+        if (pm.state == PlayerMovement.MovementState.crouching)
+            targetFov = crouchFov;
+
+        if (pm.state == PlayerMovement.MovementState.sliding)
+            targetFov = slideFov;
+
+        camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, targetFov, 0.05f);
+
     }
 }
 

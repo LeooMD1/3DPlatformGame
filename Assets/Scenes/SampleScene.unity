@@ -1196,8 +1196,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 330585545}
+  pm: {fileID: 380707286}
+  Player: {fileID: 380707283}
+  walking: 0
+  sprinting: 0
+  crouching: 0
+  sliding: 0
   walkFov: 60
   sprintFov: 70
+  crouchFov: 50
+  slideFov: 80
+  targetFov: 60
 --- !u!1 &1825370959
 GameObject:
   m_ObjectHideFlags: 0
