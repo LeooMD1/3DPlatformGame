@@ -1196,6 +1196,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 330585545}
+  walkFov: 60
+  sprintFov: 70
 --- !u!1 &1825370959
 GameObject:
   m_ObjectHideFlags: 0
