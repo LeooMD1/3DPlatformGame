@@ -39,14 +39,14 @@ public class BoostPad : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        print("reached on trigger");
+       
         if (other == col)
         {
             Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
             rb.AddForce(Vector3.up * boostVelocity, ForceMode.Impulse);
             rb.AddForce(inputDirection * boostSpeed, ForceMode.Impulse);
-            print("if statement works");
+            
         }
     }
 }

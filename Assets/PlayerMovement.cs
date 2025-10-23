@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed;
     public float sprintSpeed;
     public float slideSpeed;
+    public float swingSpeed;
 
     private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
@@ -47,6 +48,8 @@ public class PlayerMovement : MonoBehaviour
     private bool exitingSlope;
     
     public Transform orientation;
+    public LineRenderer lr;
+    private SpringJoint joint;
 
     float horizontalInput;
     float verticalInput;
@@ -61,11 +64,13 @@ public class PlayerMovement : MonoBehaviour
         walking,
         sprinting,
         crouching,
+        swinging,
         sliding,
         air
     }
 
     public bool sliding;
+    public bool swinging;
 
     private void Start()
     {
@@ -75,6 +80,9 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
 
         startYScale = transform.localScale.y;
+
+        lr.positionCount = 0;
+        Destroy(joint);
     }
 
     private void FixedUpdate()
@@ -152,6 +160,13 @@ public class PlayerMovement : MonoBehaviour
             desiredMoveSpeed = crouchSpeed;
         }
             
+        // mode - swinging
+        else if (swinging)
+        {
+            state = MovementState.swinging;
+            desiredMoveSpeed = swingSpeed;
+        }
+        
         
         // mode - Sprinting
         else if(grounded && Input.GetKey(sprintKey))
@@ -216,6 +231,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
+        if (swinging) return;
+        
+
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
