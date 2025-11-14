@@ -1,16 +1,30 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Nextlevel : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private int currentScene;
+    
+    public PlayerMovement pm;
+    public Rigidbody rb;
+    public Collider col;
+
+    public GameObject Player;
+    
     void Start()
     {
+        currentScene = SceneManager.GetActiveScene().buildIndex;
         
+        pm = Player.GetComponent<PlayerMovement>();
+        rb = Player.GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other == col)
+        {
+            print("portal touched");
+            SceneManager.LoadScene(currentScene + 1);
+        }
     }
 }
