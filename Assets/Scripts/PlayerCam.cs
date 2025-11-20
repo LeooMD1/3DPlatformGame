@@ -1,0 +1,49 @@
+using UnityEngine;
+
+public class PlayerCam : MonoBehaviour
+{
+    public Transform orientation;
+    public Transform player;
+    public Transform playerObj;
+    public Rigidbody rb;
+
+    public float rotationSpeed;
+    
+    public float sensX;
+    public float sensY;
+
+    float xRotation;
+    float yRotation;
+
+    private void Start()
+    {
+         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    private void Update()
+    {
+        float mouseX = Input.GetAxisRaw("Mouse X") * Time.fixedDeltaTime * sensX;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.fixedDeltaTime * sensY;
+
+        yRotation += mouseX;
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90, 90);
+
+        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+    
+        //rotate orientation
+        Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
+        orientation.forward = viewDir.normalized;
+
+        //rotate player obj
+
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
+        Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        if (inputDir != Vector3.zero)
+            playerObj.forward = Vector3.Slerp(playerObj.forward,inputDir.normalized, Time.deltaTime * rotationSpeed);
+    }
+}
