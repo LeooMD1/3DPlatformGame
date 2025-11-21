@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerCam : MonoBehaviour
 {
     public Transform orientation;
-    public Transform player;
+    public Transform Player;
     public Transform playerObj;
     public Rigidbody rb;
 
@@ -34,7 +34,7 @@ public class PlayerCam : MonoBehaviour
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     
         //rotate orientation
-        Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
+        Vector3 viewDir = Player.position - new Vector3(transform.position.x, Player.position.y, transform.position.z);
         orientation.forward = viewDir.normalized;
 
         //rotate player obj
@@ -44,6 +44,6 @@ public class PlayerCam : MonoBehaviour
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         if (inputDir != Vector3.zero)
-            playerObj.forward = Vector3.Slerp(playerObj.forward,inputDir.normalized, Time.deltaTime * rotationSpeed);
+            playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
     }
 }

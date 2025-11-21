@@ -36,7 +36,7 @@ public class SpeedPad : MonoBehaviour
         {
             Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-            rb.AddForce(inputDirection * speedSpeed, ForceMode.Impulse);
+            rb.AddForce(inputDirection * speedSpeed * speedVelocity, ForceMode.Force);
         }
     }
 }
