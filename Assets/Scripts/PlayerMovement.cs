@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    private float moveSpeed;
+    [SerializeField] private float moveSpeed;
+    public float speedMult;
     public float walkSpeed;
     public float sprintSpeed;
     public float slideSpeed;
@@ -224,6 +225,8 @@ public class PlayerMovement : MonoBehaviour
                 time += Time.deltaTime * speedIncreaseMultiplier;
 
             yield return null;
+
+            
         }
 
         moveSpeed = desiredMoveSpeed;
@@ -240,17 +243,17 @@ public class PlayerMovement : MonoBehaviour
         // on slope
         if (OnSlope() && !exitingSlope)
         {
-            rb.AddForce(GetSlopeMoveDirection(moveDirection) * moveSpeed * 20f, ForceMode.Force);
+            rb.AddForce(GetSlopeMoveDirection(moveDirection) * moveSpeed * speedMult * 20f, ForceMode.Force);
             if (rb.linearVelocity.y > 0)
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
 
         //on ground
         else if (grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * moveSpeed * speedMult * 10f, ForceMode.Force);
         
         else if(!grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * moveSpeed * speedMult * 10f * airMultiplier, ForceMode.Force);
 
         //turn off gravity whilst on slope
         rb.useGravity = !OnSlope();

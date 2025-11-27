@@ -16,14 +16,6 @@ public class SpeedPad : MonoBehaviour
 
     public GameObject player;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        rb = player.GetComponent<Rigidbody>();
-        pm = player.GetComponent<PlayerMovement>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -36,7 +28,8 @@ public class SpeedPad : MonoBehaviour
         {
             Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-            rb.AddForce(inputDirection * speedSpeed * speedVelocity, ForceMode.Force);
+            pm.speedMult = 10f;
+            rb.AddForce(inputDirection * 20, ForceMode.Impulse);
         }
     }
 }

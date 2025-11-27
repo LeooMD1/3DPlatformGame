@@ -32,18 +32,18 @@ public class PlayerCam : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
-    
-        //rotate orientation
-        Vector3 viewDir = Player.position - new Vector3(transform.position.x, Player.position.y, transform.position.z);
-        orientation.forward = viewDir.normalized;
 
-        //rotate player obj
+        ////rotate orientation
+        //Vector3 viewDir = Player.position - new Vector3(transform.position.x, Player.position.y, transform.position.z);
+        //orientation.forward = viewDir.normalized;
+
+        ////rotate player obj
 
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         if (inputDir != Vector3.zero)
-            playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+            playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, /*Time.deltaTime * */0.05f);
     }
 }
