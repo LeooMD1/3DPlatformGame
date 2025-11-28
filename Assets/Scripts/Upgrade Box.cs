@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 
@@ -25,6 +26,7 @@ public class UpgradeBox : MonoBehaviour
         {
             print("this part is working");
             swinging.enabled = true;
+            gameObject.SetActive(false);
         }
     }
 }

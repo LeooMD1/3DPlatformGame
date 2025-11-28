@@ -28,7 +28,7 @@ public class SpeedPad : MonoBehaviour
         {
             Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-            pm.speedMult = 10f;
+            pm.speedMult = 6.5f;
             rb.AddForce(inputDirection * 20, ForceMode.Impulse);
         }
     }
